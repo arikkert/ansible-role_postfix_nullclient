@@ -1,5 +1,5 @@
 galaxy_info:
-  role_name: postfix
+  role_name: postfix_nullclient
   author: Andre Rikkert de Koe
   description: nrpe op linux hosts
   company: ARK-ICT
