@@ -1,0 +1,38 @@
+---
+# tasks file for role_postfix_nullclient
+
+- name: ensure mailaliases are present
+  lineinfile:
+    path: /etc/aliases
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+    backup: true
+  notify: newaliases
+  loop:
+    - {regexp: 'dummy', line: '# some lines are managed by Ansible'}
+    - {regexp: '^root:\s*(.*)', line: "root: {{ email_root }}"}
+    - {regexp: '^ansible:\s*(.*)', line: 'ansible: root'}
+- name: ensure postfix is installed
+  package:
+    name:
+      - postfix
+      - mailx
+    state: present
+- name: main.cf
+  lineinfile:
+    path: /etc/postfix/main.cf
+    regexp: '^inet_interfaces'
+    line: inet_interfaces = loopback-only
+    backup: true
+  notify: postfix reload
+- name: main.cf
+  lineinfile:
+    path: /etc/postfix/main.cf
+    insertafter: inet_interfaces = loopback-only
+    line: '# last line Managed by Ansible'
+  notify: postfix reload
+- name: ensure postfix is running
+  service:
+    name: postfix
+    state: started
+    enabled: true

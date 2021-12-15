@@ -1,0 +1,5 @@
+---
+# defaults file for role_postfix_nullclient
+
+# adapt this var for your site
+email_root: root
