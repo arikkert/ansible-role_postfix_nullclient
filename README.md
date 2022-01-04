@@ -3,6 +3,7 @@ Role Name
 
 Installs and configures postfix as nullclient on Linux host
 
+Galaxy : yes
 
 Requirements
 ------------
