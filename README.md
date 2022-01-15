@@ -28,7 +28,7 @@ Example Playbook
       roles:
          - arikkert.postfix_nullclient
 
-Example of script that uses this role : https://github.com/arikkert/ansible-podman
+Example of script that uses this role : https://github.com/arikkert/ansible-podmanhost
 
 License
 -------
