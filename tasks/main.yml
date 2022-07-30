@@ -16,7 +16,6 @@
   ansible.builtin.package:
     name:
       - postfix
-      - mailx
     state: present
 - name: main.cf
   ansible.builtin.lineinfile:
@@ -36,3 +35,15 @@
     name: postfix
     state: started
     enabled: true
+- name: ensure mailx is installed when rhel8
+  ansible.builtin.package:
+    name:
+      - mailx
+    state: present
+  when: ansible_os_family == 'RedHat' and (ansible_distribution_major_version | int) <= 8
+- name: ensure mailx is installed when rhel9
+  ansible.builtin.package:
+    name:
+      - s-nail
+    state: present
+  when: ansible_os_family == 'RedHat' and (ansible_distribution_major_version | int) >= 9
