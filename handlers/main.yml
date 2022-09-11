@@ -1,11 +1,11 @@
 ---
 # handlers file for role_postfix_nullclient
 
-- name: postfix reload
+- name: Handler postfix reload
   ansible.builtin.service:
     name: postfix
     state: reloaded
-- name: newaliases
+- name: Handler newaliases
   ansible.builtin.command: newaliases
 
 ...

@@ -1,47 +1,47 @@
 ---
 # tasks file for role_postfix_nullclient
 
-- name: ensure mailaliases are present
+- name: Ensure mailaliases are present
   ansible.builtin.lineinfile:
     path: /etc/aliases
     regexp: "{{ item.regexp }}"
     line: "{{ item.line }}"
     backup: true
-  notify: newaliases
+  notify: Handler newaliases
   loop:
     - {regexp: 'dummy', line: '# some lines are managed by Ansible'}
     - {regexp: '^root:\s*(.*)', line: "root: {{ email_root }}"}
     - {regexp: '^ansible:\s*(.*)', line: 'ansible: root'}
-- name: ensure postfix is installed
+- name: Ensure postfix is installed
   ansible.builtin.package:
     name:
       - postfix
     state: present
-- name: main.cf
+- name: Ensure interfaces are set in main.cf
   ansible.builtin.lineinfile:
     path: /etc/postfix/main.cf
     regexp: '^inet_interfaces'
     line: inet_interfaces = loopback-only
     backup: true
-  notify: postfix reload
-- name: main.cf
+  notify: Handler postfix reload
+- name: Ensure line is commented in main.cf
   ansible.builtin.lineinfile:
     path: /etc/postfix/main.cf
     insertafter: inet_interfaces = loopback-only
     line: '# last line Managed by Ansible'
-  notify: postfix reload
-- name: ensure postfix is running
+  notify: Handler postfix reload
+- name: Ensure postfix is running
   ansible.builtin.service:
     name: postfix
     state: started
     enabled: true
-- name: ensure mailx is installed when rhel8
+- name: Ensure mailx is installed when rhel8
   ansible.builtin.package:
     name:
       - mailx
     state: present
   when: ansible_os_family == 'RedHat' and (ansible_distribution_major_version | int) <= 8
-- name: ensure mailx is installed when rhel9
+- name: Ensure mailx is installed when rhel9
   ansible.builtin.package:
     name:
       - s-nail
