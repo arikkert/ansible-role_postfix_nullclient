@@ -3,6 +3,7 @@ galaxy_info:
   author: Andre Rikkert de Koe
   description: nrpe op linux hosts
   company: ARK-ICT
+  namespace: arikkert
 
   # If the issue tracker for your role is not on github, uncomment the
   # next line and provide a value

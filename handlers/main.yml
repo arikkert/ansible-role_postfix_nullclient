@@ -7,5 +7,6 @@
     state: reloaded
 - name: Handler newaliases
   ansible.builtin.command: newaliases
+  changed_when: false
 
 ...
