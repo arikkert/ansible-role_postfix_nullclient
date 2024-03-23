@@ -50,6 +50,6 @@
 - name: Ensure mail utils are intalled when OS is debian family
   ansible.builtin.package:
     name:
-      - mail-utils
+      - mailutils
     state: present
   when: ansible_os_family == 'Debian'
