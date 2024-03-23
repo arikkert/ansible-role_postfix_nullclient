@@ -1,7 +1,7 @@
 galaxy_info:
   role_name: postfix_nullclient
   author: Andre Rikkert de Koe
-  description: nrpe op linux hosts
+  description: Configure postfix as nullclient on Linux hosts
   company: ARK-ICT
   namespace: arikkert
 

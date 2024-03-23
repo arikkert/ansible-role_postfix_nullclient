@@ -47,3 +47,9 @@
       - s-nail
     state: present
   when: ansible_os_family == 'RedHat' and (ansible_distribution_major_version | int) >= 9
+- name: Ensure mail utils are intalled when OS is debian family
+  ansible.builtin.package:
+    name:
+      - mail-utils
+    state: present
+  when: ansible_os_family == 'Debian'
