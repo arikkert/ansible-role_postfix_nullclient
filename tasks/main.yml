@@ -1,17 +1,6 @@
 ---
 # tasks file for role_postfix_nullclient
 
-- name: Ensure mailaliases are present
-  ansible.builtin.lineinfile:
-    path: /etc/aliases
-    regexp: "{{ item.regexp }}"
-    line: "{{ item.line }}"
-    backup: true
-  notify: Handler newaliases
-  loop:
-    - {regexp: 'dummy', line: '# some lines are managed by Ansible'}
-    - {regexp: '^root:\s*(.*)', line: "root: {{ email_root }}"}
-    - {regexp: '^ansible:\s*(.*)', line: 'ansible: root'}
 - name: Ensure postfix is installed
   ansible.builtin.package:
     name:
@@ -30,6 +19,17 @@
     insertafter: inet_interfaces = loopback-only
     line: '# last line Managed by Ansible'
   notify: Handler postfix reload
+- name: Ensure mailaliases are present
+  ansible.builtin.lineinfile:
+    path: /etc/aliases
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+    backup: true
+  notify: Handler newaliases
+  loop:
+    - {regexp: 'dummy', line: '# some lines are managed by Ansible'}
+    - {regexp: '^root:\s*(.*)', line: "root: {{ email_root }}"}
+    - {regexp: '^ansible:\s*(.*)', line: 'ansible: root'}
 - name: Ensure postfix is running
   ansible.builtin.service:
     name: postfix
