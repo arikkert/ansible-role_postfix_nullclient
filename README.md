@@ -1,5 +1,5 @@
-Role Name
-=========
+postfix_nullclient
+==================
 
 Installs and configures postfix as nullclient on Linux host
 
