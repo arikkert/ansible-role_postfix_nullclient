@@ -47,7 +47,7 @@
       - s-nail
     state: present
   when: ansible_facts['os_family'] == 'RedHat' and (ansible_facts['distribution_major_version'] | int) >= 9
-- name: Ensure mail utils are intalled when OS is debian family
+- name: Ensure mail utils are installed when OS is debian family
   ansible.builtin.package:
     name:
       - mailutils
